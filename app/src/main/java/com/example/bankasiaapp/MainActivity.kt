@@ -1,27 +1,37 @@
 package com.example.bankasiaapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navControler: NavController
+    val drawerToggle by lazy {
+        ActionBarDrawerToggle(this, drawerlayout, toolbar, R.string.open, R.string.close)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        toggle = ActionBarDrawerToggle(this, drawerlayout, R.string.open, R.string.close)
-        drawerlayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //toggle = ActionBarDrawerToggle(this, drawerlayout, R.string.open, R.string.close)
+        drawerlayout.addDrawerListener(drawerToggle)
+
+        //drawerToggle.syncState()
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle("")
+
+
         btn_login.setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
 
@@ -49,15 +59,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        drawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    /*override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onPostCreate(savedInstanceState, persistentState)
+        drawerToggle.syncState()
+    }*/
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.right_side_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
+        if (item!!.itemId == R.id.menuBtn) {
+            if (drawerlayout.isDrawerOpen(Gravity.RIGHT)) {
+                drawerlayout.closeDrawer(Gravity.RIGHT)
+            } else {
+                drawerlayout.openDrawer(Gravity.RIGHT)
+
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 }
+
+

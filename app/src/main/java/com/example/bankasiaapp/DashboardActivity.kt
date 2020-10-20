@@ -1,39 +1,44 @@
 package com.example.bankasiaapp
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navControler: NavController
+    val drawerToggle by lazy {
+        ActionBarDrawerToggle(this, container, toolbard, R.string.open, R.string.close)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        navControler = Navigation.findNavController(this, R.id.nav_host_fragment)
-
+        setSupportActionBar(toolbard)
+        navControler = Navigation.findNavController(this, R.id.fragment)
         nav_view.setupWithNavController(navControler)
 
+
+        container.addDrawerListener(drawerToggle)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle("")
+
         NavigationUI.setupActionBarWithNavController(this, navControler)
-        toggle = ActionBarDrawerToggle(this, container, R.string.open, R.string.close)
-        container.addDrawerListener(toggle)
-        toggle.syncState()
+
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -59,8 +64,18 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        drawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onPostCreate(savedInstanceState, persistentState)
+        drawerToggle.syncState()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
-        val navigateControler = findNavController(R.id.nav_host_fragment)
+        val navigateControler = findNavController(R.id.fragment)
         return navigateControler.navigateUp()
     }
 
@@ -70,8 +85,13 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
+        if (item!!.itemId == R.id.menuBtn) {
+            if (container.isDrawerOpen(Gravity.RIGHT)) {
+                container.closeDrawer(Gravity.RIGHT)
+            } else {
+                container.openDrawer(Gravity.RIGHT)
+
+            }
         }
         return super.onOptionsItemSelected(item)
     }

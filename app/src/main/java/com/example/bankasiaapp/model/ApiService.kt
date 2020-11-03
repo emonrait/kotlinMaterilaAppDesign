@@ -25,12 +25,12 @@ class ApiService {
             .create(Api::class.java)
     }
 
-    fun createUser(name: String?, password: String?): Call<ApiResponse>{
-       return apiinstance.signinInformation(name, password)
+    fun createUser(userId: String?, password: String?): Call<ApiResponse>{
+       return apiinstance.signinInformation(userId, password)
     }
 
-    fun login(name: String?, password: String?): Call<ApiResponse>{
-        return apiinstance.logininInformation(name, password)
+    fun login(userId: String?, password: String?): Call<ApiResponse>{
+        return apiinstance.logininInformation(userId, password)
     }
 
 

@@ -10,8 +10,8 @@ class ApiResponse {
     @SerializedName("outCode")
     private var outCode = 0
 
-    @SerializedName("name")
-    private var name: String? = null
+    @SerializedName("userId")
+    private var userId: String? = null
 
     fun getoutMessage(): String? {
         return outMessage
@@ -29,11 +29,11 @@ class ApiResponse {
         this.outCode = outCode
     }
 
-    fun getName(): String? {
-        return name
+    fun getUserId(): String? {
+        return userId
     }
 
-    fun setName(name: String?) {
-        this.name = name
+    fun setUserId(userId: String?) {
+        this.userId = userId
     }
 }

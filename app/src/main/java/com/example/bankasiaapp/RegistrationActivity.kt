@@ -95,10 +95,10 @@ class RegistrationActivity : AppCompatActivity() {
 
     fun saveUser() {
         var apiinstance = ApiService()
-        var name = input_username.text.toString().trim()
+        var userId = input_username.text.toString().trim()
         var password = input_password.text.toString().trim()
 
-        var call: Call<ApiResponse> = apiinstance.createUser(name, password)
+        var call: Call<ApiResponse> = apiinstance.createUser(userId, password)
         call.enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG)

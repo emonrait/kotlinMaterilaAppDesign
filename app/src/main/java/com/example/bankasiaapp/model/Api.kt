@@ -11,14 +11,14 @@ interface Api {
     @FormUrlEncoded
     @POST("add")
     fun signinInformation(
-        @Field("name") name: String?,
+        @Field("userId") userId: String?,
         @Field("password") password: String?
     ): Call<ApiResponse>
 
 
     @GET("/login")
     fun logininInformation(
-        @Field("username") email: String?,
+        @Field("userId") userId: String?,
         @Field("password") password: String?
     ): Call<ApiResponse>
 

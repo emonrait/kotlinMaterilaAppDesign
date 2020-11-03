@@ -10,7 +10,17 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import com.example.bankasiaapp.model.ApiResponse
+import com.example.bankasiaapp.model.ApiService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.drawerlayout
+import kotlinx.android.synthetic.main.activity_main.input_password
+import kotlinx.android.synthetic.main.activity_main.navView
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.activity_registration.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
@@ -33,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
+            loginUser()
             startActivity(Intent(this, DashboardActivity::class.java))
 
         }
@@ -86,6 +97,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun loginUser() {
+        var apiinstance = ApiService()
+        var name = input_username.text.toString().trim()
+        var password = input_password.text.toString().trim()
+
+        var call: Call<ApiResponse> = apiinstance.login(name, password)
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }
+
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                Toast.makeText(
+                    applicationContext,
+                    response.body()?.getoutMessage(),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
+
+
     }
 }
 

@@ -29,5 +29,9 @@ class ApiService {
        return apiinstance.signinInformation(name, password)
     }
 
+    fun login(name: String?, password: String?): Call<ApiResponse>{
+        return apiinstance.logininInformation(name, password)
+    }
+
 
 }

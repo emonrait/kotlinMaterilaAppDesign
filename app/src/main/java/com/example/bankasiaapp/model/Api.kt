@@ -3,6 +3,7 @@ package com.example.bankasiaapp.model
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface Api {
@@ -15,7 +16,7 @@ interface Api {
     ): Call<ApiResponse>
 
 
-    @POST("/login")
+    @GET("/login")
     fun logininInformation(
         @Field("username") email: String?,
         @Field("password") password: String?

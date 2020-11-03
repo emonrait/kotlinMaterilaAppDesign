@@ -49,8 +49,10 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     Toast.makeText(this, "Login Page", Toast.LENGTH_SHORT).show()
                 }
-                R.id.registration -> Toast.makeText(this, "registration Menu", Toast.LENGTH_SHORT)
-                    .show()
+                R.id.registration -> {
+                    startActivity(Intent(this, RegistrationActivity::class.java))
+                    Toast.makeText(this, "registration Menu", Toast.LENGTH_SHORT).show()
+                }
                 R.id.notifications -> Toast.makeText(this, "notifications Menu", Toast.LENGTH_SHORT)
                     .show()
                 R.id.aboutus -> Toast.makeText(this, "aboutus Menu", Toast.LENGTH_SHORT).show()
@@ -90,7 +92,6 @@ class DashboardActivity : AppCompatActivity() {
                 container.closeDrawer(Gravity.RIGHT)
             } else {
                 container.openDrawer(Gravity.RIGHT)
-
             }
         }
         return super.onOptionsItemSelected(item)

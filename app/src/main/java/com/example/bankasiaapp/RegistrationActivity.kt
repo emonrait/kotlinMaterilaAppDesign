@@ -10,9 +10,17 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.bankasiaapp.model.ApiResponse
+import com.example.bankasiaapp.model.ApiService
+import kotlinx.android.synthetic.main.activity_main.drawerlayout
+import kotlinx.android.synthetic.main.activity_main.navView
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.activity_registration.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class RegistrationActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navControler: NavController
     val drawerToggle by lazy {
@@ -21,23 +29,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_registration)
         setSupportActionBar(toolbar)
-
-        //toggle = ActionBarDrawerToggle(this, drawerlayout, R.string.open, R.string.close)
         drawerlayout.addDrawerListener(drawerToggle)
-
-        //drawerToggle.syncState()
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle("")
 
 
-        btn_login.setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java))
+        btn_register.setOnClickListener {
+            saveUser()
 
         }
-        link_register.setOnClickListener {
-            startActivity(Intent(this, RegistrationActivity::class.java))
+        link_login.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         navView.setNavigationItemSelectedListener {
@@ -47,8 +50,10 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     Toast.makeText(this, "Login Page", Toast.LENGTH_SHORT).show()
                 }
-                R.id.registration -> Toast.makeText(this, "registration Menu", Toast.LENGTH_SHORT)
-                    .show()
+                R.id.registration -> {
+                    startActivity(Intent(this, RegistrationActivity::class.java))
+                    Toast.makeText(this, "Login Page", Toast.LENGTH_SHORT).show()
+                }
                 R.id.notifications -> Toast.makeText(this, "notifications Menu", Toast.LENGTH_SHORT)
                     .show()
                 R.id.aboutus -> Toast.makeText(this, "aboutus Menu", Toast.LENGTH_SHORT).show()
@@ -86,6 +91,32 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun saveUser() {
+        var apiinstance = ApiService()
+        var name = input_username.text.toString().trim()
+        var password = input_password.text.toString().trim()
+
+        var call: Call<ApiResponse> = apiinstance.createUser(name, password)
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG)
+                    .show()
+            }
+
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                Toast.makeText(
+                    applicationContext,
+                    response.body()?.getoutMessage(),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
+
+
     }
 }
 

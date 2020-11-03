@@ -16,6 +16,9 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            app:subtitleTextColor="@android:color/white"
+            app:theme="@style/ToolbarColoredBackArrow"
+            app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -190,7 +193,7 @@
                                         android:id="@+id/btn_login"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:background="#28BAF0"
+                                        android:background="#7341F1"
                                         android:drawableLeft="@drawable/ic_lock"
                                         android:paddingLeft="10dp"
                                         android:text="login"
@@ -231,6 +234,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_drawer_menu" />
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener {
             loginUser()
-            startActivity(Intent(this, DashboardActivity::class.java))
+            //startActivity(Intent(this, DashboardActivity::class.java))
 
         }
         link_register.setOnClickListener {
@@ -101,10 +101,10 @@ class MainActivity : AppCompatActivity() {
 
     fun loginUser() {
         var apiinstance = ApiService()
-        var userId = input_username.text.toString().trim()
+        var mobile = input_userid.text.toString().trim()
         var password = input_password.text.toString().trim()
 
-        var call: Call<ApiResponse> = apiinstance.login(userId, password)
+        var call: Call<ApiResponse> = apiinstance.login(mobile, password)
         call.enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG)
@@ -114,9 +114,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 Toast.makeText(
-                    applicationContext,
-                    response.body()?.getoutMessage(),
-                    Toast.LENGTH_LONG
+                    applicationContext, response.body()?.name, Toast.LENGTH_LONG
                 ).show()
             }
 

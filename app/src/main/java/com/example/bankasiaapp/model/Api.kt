@@ -1,25 +1,35 @@
 package com.example.bankasiaapp.model
 
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
+
 
 interface Api {
 
-    @FormUrlEncoded
-    @POST("insertuser")
+    @POST("/addUser")
     fun signinInformation(
-        @Field("userId") userId: String?,
-        @Field("password") password: String?
+        @Body params: RequestBody?
     ): Call<ApiResponse>
 
 
-    @GET("/login")
+    @FormUrlEncoded
+    @GET("/loginbymobile")
     fun logininInformation(
-        @Field("userId") userId: String?,
+        @Field("mobile") mobile: String?,
         @Field("password") password: String?
+    ): Call<ApiResponse>
+
+    @FormUrlEncoded
+    @GET("/users/{userId}")
+    fun getuser(
+        @Field("userId") userId: String?
+    ): Call<ApiResponse>
+
+    @FormUrlEncoded
+    @PUT("/userupdate}")
+    fun userUpdate(
+        @Field("userId") userId: String?
     ): Call<ApiResponse>
 
 }

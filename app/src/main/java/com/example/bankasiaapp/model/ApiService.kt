@@ -35,8 +35,8 @@ class ApiService {
         return apiinstance.signinInformation(params)
     }
 
-    fun login(mobile: String?, password: String?): Call<ApiResponse> {
-        return apiinstance.logininInformation(mobile, password)
+    fun login(params: RequestBody): Call<ApiResponse> {
+        return apiinstance.logininInformation(params)
     }
 
 

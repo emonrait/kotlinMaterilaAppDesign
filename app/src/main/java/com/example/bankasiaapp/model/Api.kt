@@ -13,12 +13,11 @@ interface Api {
     ): Call<ApiResponse>
 
 
-    @FormUrlEncoded
-    @GET("/loginbymobile")
+    @POST("/login")
     fun logininInformation(
-        @Field("mobile") mobile: String?,
-        @Field("password") password: String?
+        @Body params: RequestBody
     ): Call<ApiResponse>
+
 
     @FormUrlEncoded
     @GET("/users/{userId}")
@@ -31,5 +30,6 @@ interface Api {
     fun userUpdate(
         @Field("userId") userId: String?
     ): Call<ApiResponse>
+
 
 }

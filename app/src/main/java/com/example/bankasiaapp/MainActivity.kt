@@ -9,15 +9,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.ArrayMap
 import androidx.navigation.NavController
 import com.example.bankasiaapp.model.ApiResponse
 import com.example.bankasiaapp.model.ApiService
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.drawerlayout
-import kotlinx.android.synthetic.main.activity_main.input_password
-import kotlinx.android.synthetic.main.activity_main.navView
-import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.activity_registration.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,21 +103,46 @@ class MainActivity : AppCompatActivity() {
         var mobile = input_userid.text.toString().trim()
         var password = input_password.text.toString().trim()
 
-        var call: Call<ApiResponse> = apiinstance.login(mobile, password)
-        call.enqueue(object : Callback<ApiResponse> {
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG)
-                    .show()
-            }
+        val jsonParams: MutableMap<String?, Any?> = ArrayMap()
+//put something inside the map, could be null
+        //put something inside the map, could be null
 
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
-                Toast.makeText(
-                    applicationContext, response.body()?.name, Toast.LENGTH_LONG
-                ).show()
-            }
+        jsonParams["mobile"] = mobile
+        jsonParams["password"] = password
 
-        })
+        val body = RequestBody.create(
+            MediaType.parse("application/json; charset=utf-8"),
+            JSONObject(jsonParams).toString()
+        )
+
+        if (mobile.isEmpty()) {
+            input_userid.error = "Mobile No Required"
+            input_userid.requestFocus()
+        }
+        if (password.isEmpty()) {
+            input_password.error = "Password Required"
+            input_password.requestFocus()
+        } else {
+
+            var call: Call<ApiResponse> = apiinstance.login(body)
+            call.enqueue(object : Callback<ApiResponse> {
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                    //startActivity(Intent(applicationContext, MainActivity::class.java))
+                    var s = response.body().toString()
+                    Toast.makeText(
+                        applicationContext,
+                        s,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            })
+
+        }
 
 
     }

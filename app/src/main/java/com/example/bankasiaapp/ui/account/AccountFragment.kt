@@ -34,7 +34,7 @@ class AccountFragment : Fragment() {
 
         userList.apply {
             layoutManager = LinearLayoutManager(context)
-            // adapter = dogsListAdapter
+            adapter = usersListAdapter
         }
         refreshlayout.setOnRefreshListener {
             userList.visibility = View.GONE
@@ -71,5 +71,6 @@ class AccountFragment : Fragment() {
         })
 
     }
+
 
 }

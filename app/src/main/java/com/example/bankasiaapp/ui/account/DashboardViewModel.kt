@@ -18,7 +18,6 @@ class DashboardViewModel : ViewModel() {
     val userLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
-
     fun refresh() {
         fetchFromRemote()
     }

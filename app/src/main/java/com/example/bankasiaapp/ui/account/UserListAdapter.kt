@@ -30,6 +30,10 @@ class UserListAdapter(val usersList: ArrayList<ApiResponse>) :
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.view.name.text = usersList[position].name
         holder.view.mobile.text = usersList[position].mobile
+//        holder.view.setOnClickListener {
+//            Navigation.findNavController(it)
+//            .navigate(ListFragmentDirections.actionListFragmentToDetailFragment())
+//        }
         holder.view.imageView.loadImage(
             usersList[position].imagelink,
             getProgressDrawable(holder.view.imageView.context)

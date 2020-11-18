@@ -22,6 +22,7 @@ interface Api {
     @GET("/users")
     fun getuser(): Single<List<ApiResponse>>
 
+
     @GET("/users/{userId}")
     fun getuserbyid(
         @Field("userId") userId: String?

@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
-            loginUser()
-            //startActivity(Intent(this, DashboardActivity::class.java))
+            //loginUser()
+            startActivity(Intent(this, DashboardActivity::class.java))
 
         }
         link_register.setOnClickListener {
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                    //startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity(Intent(applicationContext, DashboardActivity::class.java))
                     var s = response.body().toString()
                     Toast.makeText(
                         applicationContext,

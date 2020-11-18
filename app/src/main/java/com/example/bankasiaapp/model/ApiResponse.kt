@@ -6,6 +6,8 @@ data class ApiResponse(
     var mobile: String?,
     var password: String?,
     var imagelink: String?
+
+
 )
 
 

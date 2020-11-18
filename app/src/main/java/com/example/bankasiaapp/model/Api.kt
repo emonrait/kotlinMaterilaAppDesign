@@ -1,5 +1,6 @@
 package com.example.bankasiaapp.model
 
+import io.reactivex.Single
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -18,10 +19,11 @@ interface Api {
         @Body params: RequestBody
     ): Call<ApiResponse>
 
+    @GET("/users")
+    fun getuser(): Single<List<ApiResponse>>
 
-    @FormUrlEncoded
     @GET("/users/{userId}")
-    fun getuser(
+    fun getuserbyid(
         @Field("userId") userId: String?
     ): Call<ApiResponse>
 

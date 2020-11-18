@@ -34,13 +34,12 @@ class DashboardActivity : AppCompatActivity() {
 
 
         container.addDrawerListener(drawerToggle)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle("")
 
         NavigationUI.setupActionBarWithNavController(this, navControler)
 
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navView1.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -76,10 +75,10 @@ class DashboardActivity : AppCompatActivity() {
         drawerToggle.syncState()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navigateControler = findNavController(R.id.fragment)
-        return navigateControler.navigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        val navigateControler = findNavController(R.id.fragment)
+//        return navigateControler.navigateUp()
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.right_side_menu, menu)

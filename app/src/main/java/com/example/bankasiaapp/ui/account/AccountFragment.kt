@@ -20,7 +20,6 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_account, container, false)
@@ -71,6 +70,5 @@ class AccountFragment : Fragment() {
         })
 
     }
-
 
 }

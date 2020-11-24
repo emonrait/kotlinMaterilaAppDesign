@@ -141,13 +141,21 @@ class RegistrationActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                    //startActivity(Intent(applicationContext, MainActivity::class.java))
-                    var s = response.body().toString()
-                    Toast.makeText(
-                        applicationContext,
-                        s,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    if (response.isSuccessful) {
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        var s = response.body().toString()
+                        Toast.makeText(
+                            applicationContext,
+                            s,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "This user is Already Exist",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
 
             })

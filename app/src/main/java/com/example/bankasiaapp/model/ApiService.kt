@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class ApiService {
-    private val BASE_URL = "http://10.11.200.1:8080/"
+    private val BASE_URL = "http://10.11.200.4:8080/"
 
 
     var gson = GsonBuilder().setLenient().create()

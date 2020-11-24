@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
-            //loginUser()
-            startActivity(Intent(this, DashboardActivity::class.java))
+            loginUser()
+            //startActivity(Intent(this, DashboardActivity::class.java))
 
         }
         link_register.setOnClickListener {

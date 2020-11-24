@@ -17,21 +17,24 @@ interface Api {
     @POST("/login")
     fun logininInformation(
         @Body params: RequestBody
-    ): Call<ApiResponse>
+    ): Call<UserResponse>
 
     @GET("/users")
     fun getuser(): Single<List<ApiResponse>>
-
 
     @GET("/users/{userId}")
     fun getuserbyid(
         @Field("userId") userId: String?
     ): Call<ApiResponse>
 
-    @FormUrlEncoded
-    @PUT("/userupdate}")
+    @PUT("/update}")
     fun userUpdate(
-        @Field("userId") userId: String?
+        @Body params: RequestBody?
+    ): Call<ApiResponse>
+
+    @PUT("/delete/{id}}")
+    fun userDelete(
+        @Field("id") id: Int?
     ): Call<ApiResponse>
 
 

@@ -30,10 +30,18 @@ class UserListAdapter(val usersList: ArrayList<ApiResponse>) :
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.view.name.text = usersList[position].name
         holder.view.mobile.text = usersList[position].mobile
-//        holder.view.setOnClickListener {
-//            Navigation.findNavController(it)
-//            .navigate(ListFragmentDirections.actionListFragmentToDetailFragment())
-//        }
+        holder.view.passworduser.text = usersList[position].password
+        holder.view.iduser.text = usersList[position].id.toString()
+        holder.view.edit.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_navigation_account_to_updateFragment)
+        }
+
+        holder.view.delete.setOnClickListener {
+            usersList.removeAt(position)
+            notifyDataSetChanged()
+        }
+
         holder.view.imageView.loadImage(
             usersList[position].imagelink,
             getProgressDrawable(holder.view.imageView.context)

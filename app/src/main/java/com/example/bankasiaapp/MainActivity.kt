@@ -11,8 +11,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.ArrayMap
 import androidx.navigation.NavController
-import com.example.bankasiaapp.model.ApiResponse
 import com.example.bankasiaapp.model.ApiService
+import com.example.bankasiaapp.model.UserResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -124,20 +124,32 @@ class MainActivity : AppCompatActivity() {
             input_password.requestFocus()
         } else {
 
-            var call: Call<ApiResponse> = apiinstance.login(body)
-            call.enqueue(object : Callback<ApiResponse> {
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+            var call: Call<UserResponse> = apiinstance.login(body)
+            call.enqueue(object : Callback<UserResponse> {
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_LONG).show()
                 }
 
-                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                    startActivity(Intent(applicationContext, DashboardActivity::class.java))
-                    var s = response.body().toString()
-                    Toast.makeText(
-                        applicationContext,
-                        s,
-                        Toast.LENGTH_LONG
-                    ).show()
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        startActivity(Intent(applicationContext, DashboardActivity::class.java))
+                        var s = response.body().toString()
+                        Toast.makeText(
+                            applicationContext,
+                            s,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "Userid & Password is Wrong!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
                 }
 
             })

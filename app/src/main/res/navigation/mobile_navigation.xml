@@ -19,7 +19,11 @@
         android:id="@+id/navigation_account"
         android:name="com.example.bankasiaapp.ui.account.AccountFragment"
         android:label="Account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -39,5 +43,14 @@
         <action
             android:id="@+id/action_bankTransferFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.bankasiaapp.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_navigation_account"
+            app:destination="@id/navigation_account" />
     </fragment>
 </navigation>

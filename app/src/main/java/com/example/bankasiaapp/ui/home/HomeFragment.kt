@@ -26,9 +26,10 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         //val textView: TextView = root.findViewById(R.id.text_home)
+        val textName:TextView=root.findViewById(R.id.username)
+
         root.transfer.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_bankTransferFragment)
-
 
         }
         return root
